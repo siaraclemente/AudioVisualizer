@@ -36,7 +36,7 @@ class Rectangles {
 }
     
 //creation of bubbles
-class bubbles {
+class Bubbles {
     constructor(x, y, vx, vy, r) {
         this.x = x;
         this.y = y;
@@ -63,12 +63,14 @@ function init() {
     for (var i = 0; i < 500; i++) {
         var x = Math.random() * window.innerWidth;
         var y = Math.random() * window.innerHeight;
-        newBubbles.push(new bubbles(x, y, vx, vy, r) );
+        newBubbles.push(new Bubbles(x, y, vx, vy, r) );
         newBubbles[newBubbles.length -1].drawBubbles();
     }
+    
 }
 
 init(); //calling bubbles
+// // Create a new instance of an audio object and adjust some of its properties
 
 
 
