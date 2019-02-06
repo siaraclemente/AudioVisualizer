@@ -8,71 +8,69 @@ canvas.height = window.innerHeight;
 // //Declaring Additional Variables
 var c = canvas.getContext('2d'); //Renders images in 2D
 
-//rectangles
-var rectX = 0;
-var rectY = Math.floor((Math.random() * 40) / 100 * window.innerHeight);
-var rectW = 50;
-var rectH = 500;
-
-var rectColor = 'rgb(' + (Math.floor(Math.random() * 256)) 
+//creation of rectangles
+class Rectangles {
+    constructor(x) {
+        this.x = x*50;
+        this.y = Math.floor((Math.random() * 40) / 100 * window.innerHeight);
+        this.w = 50;
+        this.h = 500;
+        this.color = 'rgb(' + (Math.floor(Math.random() * 256)) 
                     + ',' + (Math.floor(Math.random() * 256)) 
                     + ',' + (Math.floor(Math.random() * 256)) + ')';
+        }
 
+    //actually drawing rectangles on canvas w/random colors
+    drawRectangles(){
+        c.beginPath();
+        c.fillStyle = this.color;
+        c.fillRect(this.x, this.y, this.w, this.h);
+        this.x += this.w;
+        this.y = Math.floor((Math.random() * 40) / 100 * window.innerHeight);
+    }
+}
+    rectangles = []; //having rectagles fill entire window width
+        for (var i = 0; i < window.innerWidth / 50; i++) {
+        rectangles.push(new Rectangles(i));
+        rectangles[rectangles.length - 1].drawRectangles();
+}
+    
+//creation of bubbles
+class bubbles {
+    constructor(x, y, vx, vy, r) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.r = 5;
+    }
+    //actually drawing circles/bubbles on canvas
+    drawBubbles() {
+        c.beginPath();
+        c.arc(this.x, this.y, this.r, 2 * Math.PI, false);
+        c.strokeStyle = 'rgba(255, 255, 255)';
+        c.stroke();
+        c.closePath();
+    }
+}
+//randomizing number/amount of bubbles
+function init() {
+    var vx = 0;
+    var vy = 0;
+    var r = 5;
+    var newBubbles = [];
 
-for (var i = 0; i < window.innerWidth/50; i++) {
-    c.beginPath();
-    c.fillStyle = rectColor;
-    c.fillRect(rectX, rectY, rectW, rectH);
-    rectX += rectW;
-    rectY = Math.floor((Math.random() * 40) / 100 * window.innerHeight);
-    rectColor = 'rgb(' + (Math.floor(Math.random() * 256)) 
-                    + ',' + (Math.floor(Math.random() * 256)) 
-                    + ',' + (Math.floor(Math.random() * 256)) + ')';
-    console.log(rectColor);
+    for (var i = 0; i < 500; i++) {
+        var x = Math.random() * window.innerWidth;
+        var y = Math.random() * window.innerHeight;
+        newBubbles.push(new bubbles(x, y, vx, vy, r) );
+        newBubbles[newBubbles.length -1].drawBubbles();
+    }
 }
 
-// circles
-// c.beginPath();
-// c.arc(200, 200, 30, 0, Math.PI * 2, false);
-// c.strokeStyle = 'green';
-// c.stroke();
+init(); //calling bubbles
 
-// var x = 200;
-// var y = 200;
-// var vx = 4;
-// var vy = 4;
-// var radius = 30;
-// function animate() {
-//     requestAnimationFrame(animate);
-//     c.clearRect(0, 0, innerWidth, innerHeight);
-//     c.beginPath();
-//     c.arc(x, 200, 30, 0, Math.PI * 2, false);
-//     c.strokeStyle = 'green';
-//     c.stroke();
 
-//     if (x + radius  > innerWidth || x - radius < 0) {
-//         vx = -vx;
-//     }
 
-//     // if (y + radius > innerHeight || y - radius < 0) {
-//     //     vy = -vy;
-//     // }
-
-//     x += vx;
-//     y += vy;
-// }
-
-// animate();
-// console.log('hi');
-
-//create bubbles
-for (var i = 0; i < 500; i++) {
-    var bubbleX = Math.random() * window.innerWidth;
-    var bubbleY = Math.random() * window.innerHeight;
-    c.beginPath();
-    c.arc(bubbleX, bubbleY, 5, 0, Math.PI * 2, false);
-    c.strokeStyle = 'rgba(255, 255, 255)';
-    c.stroke();
-}
 
 
