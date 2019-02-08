@@ -1,10 +1,10 @@
 # AudioVisualiser
 
-### I made This: 
-[http://previous-toad.surge.sh/ "Bubbles/No Audio Controls"] 
+### I Made This: 
+http://previous-toad.surge.sh/ "Bubbles/No Audio Controls" 
 ![Bubbles/No Audio Controls](https://github.com/siaraclemente/wdiproject1game/blob/master/readme/screenshot3.jpg)
 
-[http://cloistered-doll.surge.sh/ "No Bubbles/Audio Controls"] 
+http://cloistered-doll.surge.sh/ "No Bubbles/Audio Controls" 
 ![No Bubbles/Audio Controls](https://github.com/siaraclemente/wdiproject1game/blob/master/readme/screenshot1.jpg) 
 
 ### What is It?: 
@@ -20,12 +20,12 @@ People of any age who enjoy music and visualizing the beat. This isn’t so much
 Play your favorite songs, and watch the music synchronize to the colorful bars!
 
 ### What It Has/What Was Used:
-..* Linked to Audio (in a loop)
-..* Audio Player Controls
-..* Web Audio API
-..* Canvas
-..* Mouse Click 
-..* Mouseover
+* Linked to Audio (in a loop)
+* Audio Player Controls
+* Web Audio API
+* Canvas
+* Mouse Click 
+* Mouseover
 
 ### Issues I Ran Into:
 * Had to learn Canvas, plus additional requirements regarding music analysers.
@@ -33,7 +33,7 @@ Play your favorite songs, and watch the music synchronize to the colorful bars!
 * This: 
 Access to audio at 'file:///Users/siara/Desktop/GA-Projects/Game2/MP3/game.mp3' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https. 
 
-In short CORS blocked me from synchronizing the music to my canvas element, leaving the canvas running consistently at the default rate. SetTimeout slowed it down to start, but SetInterval was blatantly ignored, code would’ve had to be completely re-written. I may have found another alternative as well, potential work around with ArrayBuffer, which I believe would allow me set things accordingly, vs working with a default.
+** In short CORS blocked me from synchronizing the music to my canvas element, leaving the canvas running consistently at the default rate. SetTimeout slowed it down to start, but SetInterval was blatantly ignored, code would’ve had to be completely re-written. I may have found another alternative as well, potential work around with ArrayBuffer, which I believe would allow me set things accordingly, vs working with a default.
 
 * Chrome defaults to autoPlay being being disabled (when controls aren’t provided), thus leaving me with the decision of wanting controls or not on my visualizer/analyzer. Chrome states that should a click event be provided, autoPlay will then play without any issue. Although all events, along with resume are console logging properly, unless autoPlay was enabled on Chrome, I couldn’t get the music to play upon opening project. [For the purposes of this project, I did decide to add controls, in html.
 
