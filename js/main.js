@@ -73,6 +73,7 @@ class Bubbles {
 
     //drawing animation of bubbles
     float(){
+        
         //collision detection
         if (this.x + this.r > innerWidth || 
             this.x - this.r < 0){
