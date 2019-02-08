@@ -7,14 +7,23 @@ canvas.height = window.innerHeight;
 
 // //Declaring Additional Variables
 var c = canvas.getContext('2d'); //Renders images in 2D
-rectangles = []; //having rectagles fill entire window width
-newBubbles = [];
+var rectangles = []; 
+var newBubbles = []; 
+var ctx = new AudioContext();
+var analyser = ctx.createAnalyser();
+
+//music
 var audio = new Audio();
+// audio.src = 'MP3/game.mp3';
+// audio.controls = true;
+// audio.loop = true;
+// audio.autoplay = true;
+// audio.crossOrigin = 'anonymous'; //Attempt at CORS work around
 
 //creation of rectangles
 class Rectangles {
-    constructor(x) {
-        this.x = x*50;
+    constructor(x){
+        this.x = x * 50;
         this.y = Math.floor((Math.random() * 40) / 100 * window.innerHeight);
         this.w = 50;
         this.h = 500;
@@ -23,7 +32,7 @@ class Rectangles {
                     + ',' + (Math.floor(Math.random() * 256)) + ')';
         }
 
-    //actually drawing rectangles on canvas w/random colors
+//actually drawing rectangles on canvas w/random colors
     drawRectangle(){
         c.beginPath();
         c.fillStyle = this.color;
@@ -33,69 +42,83 @@ class Rectangles {
     }
 }
 
-function drawAllRectangles(){
+//having rectagles fill entire window width
+function drawAllRectangles(){ 
     for (var i = 0; i < window.innerWidth / 50; i++) {
         rectangles.push(new Rectangles(i));
         rectangles[rectangles.length - 1].drawRectangle();
     }            
 }
 
-
-    
 //creation of bubbles
 class Bubbles {
-    constructor(x, y, vx, vy, r) {
+    constructor(x, y, vx, vy, r){
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
         this.r = 5;
     }
-    //actually drawing circles/bubbles on canvas
-    drawBubbles() {
+
+    // actually drawing circles/bubbles on canvas
+    drawBubbles(){
         c.beginPath();
         c.arc(this.x, this.y, this.r, 2 * Math.PI, false);
         c.strokeStyle = 'white';
         c.stroke();
         c.closePath();
     }
-}
-//randomizing placement of bubbles to fill window
-function init() {
-    var vx = 0;
-    var vy = 0;
-    var r = 5;
-    // var newBubbles = [];
 
-    for (var i = 0; i < 500; i++) {
+    //drawing animation of bubbles
+    float(){
+        if (this.x + this.r > innerWidth || 
+            this.x - this.r < 0){
+                vx = -vx;
+            } 
+        if (this.r + this.y > innerHeight ||
+            this.y - this.drawBubbles.r < 0){
+                vy = -vx;
+            } 
+    }   
+
+//randomizing placement of bubbles to fill window
+function init(){
+    var vx = .05;
+    var vy = .05;
+    var r = 5;
+
+    for (var i = 0; i < 500; i++){
         var x = Math.floor(Math.random() * window.innerWidth);
         var y = Math.floor(Math.random() * window.innerHeight);
-        newBubbles.push(new Bubbles(x, y, vx, vy, r) );
-        newBubbles[newBubbles.length -1].drawBubbles();
+        newBubbles.push(new Bubbles(x, y, vx, vy, r));
     }  
 }
 
-init(); //calling bubbles
-
+//event listeners
+window.addEventListener('mousemove', function (event){
+// var mouse = {
+//     x: undefined
+//     y: undefined
+//     }
+    // mouse.x = event.x;
+    // mouse.y = event.y;
+    console.log('hi');
+     });
+    
 //allows music to autoplay in Chrome with Event
-// window.onload = function() {
-//     var context = new AudioContext();
-// //autoplay music on loop (doesn't work in Chrome without event)
-// window.onload = function() {
-//     document.getElementById('myAudio').play();    
-//     }  
-//   }
+//autoplay music on loop (doesn't work in Chrome without event)
+window.addEventListener('click', function(){
+    ctx.resume().then()
+      console.log('Playback resumed successfully');
+  });
 
- //event listeners
 window.addEventListener('load', updateMusic, false);
 function updateMusic(){
-    document.getElementById('myAudio').appendChild(audio);
-    context = new AudioContext(); // AudioContext object instance
-    visual = context.createAnalyser(); // AnalyserNode method
+    analyser = ctx.createAnalyser(); // AnalyserNode method
     // Re-route audio playback into the processing graph of the AudioContext
-	source = context.createMediaElementSource(audio); 
-	source.connect(visual);
-	visual.connect(context.destination);
+	source = ctx.createMediaElementSource(audio); 
+	source.connect(analyser);
+	analyser.connect(ctx.destination);
 	animate();
 }
 
@@ -103,21 +126,24 @@ function updateMusic(){
 // Looping at the default frame rate that the browser provides(approx. 60 FPS)
 function animate(){
     window.requestAnimationFrame(animate); //requesting animation loop
-    soundData = new Uint8Array(visual.frequencyBinCount);
-    visual.getByteFrequencyData(soundData);
-        c.clearRect(0, 0, canvas.width, canvas.height); //clear canvas
+    soundData = new Uint8Array(analyser.frequencyBinCount); //array representation of data sound frequency //making animation happen
+    analyser.getByteFrequencyData(soundData);
+    c.clearRect(0, 0, canvas.width, canvas.height); //clear canvas every time function loops
         
-        for(var j = 0; j< newBubbles.lenght; j++){
-            newBubbles[i].drawBubbles();
-            
+        //looping bubbles consistently
+        for (let i = 0; i < newBubbles.length; i++){
+           newBubbles[i].drawBubbles();
+           newBubbles[i].float();
         }
-        //c.clearRect(0, 0, canvas.width, canvas.height);
-        for (var i = 0; i < window.innerWidth / 50; i++) {
-            rectangles[i].drawRectangle();  
-            
-        }
+
+        //looping rectangles consistently
+        rectangles = [];
+        for (var i = 0; i < window.innerWidth / 50; i++){
+            rectangles.push(new Rectangles(i));
+            rectangles[rectangles.length - 1].drawRectangle();
+        }         
 }
+
 init();
 drawAllRectangles();
 animate();
-//setInterval(animate, 2000);
