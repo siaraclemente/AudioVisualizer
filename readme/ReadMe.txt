@@ -1,4 +1,8 @@
 
+I made This: 
+http://previous-toad.surge.sh/ -- bubbles -- no audio controls
+http://cloistered-doll.surge.sh/ -- no bubbles - audio controls
+
 What is It?: An audio visualizer. Play your favorite songs, and watch the colorful bars fill your screen and synchronize to the beat!
 
 Purpose: Music/Entertainment and/or Stress-reliever/Break from reality
