@@ -1,10 +1,10 @@
 # AudioVisualiser
 
 ### I made This: 
-[http://previous-toad.surge.sh/] 
+[http://previous-toad.surge.sh/"Bubbles/No Audio Controls"] 
 ![Bubbles/No Audio Controls](https://github.com/siaraclemente/wdiproject1game/blob/master/readme/screenshot3.jpg)
 
-[http://cloistered-doll.surge.sh/] 
+[http://cloistered-doll.surge.sh/"No Bubbles/Audio Controls"] 
 ![No Bubbles/Audio Controls](https://github.com/siaraclemente/wdiproject1game/blob/master/readme/screenshot1.jpg) 
 
 ### What is It?: 
@@ -28,9 +28,9 @@ Play your favorite songs, and watch the music synchronize to the colorful bars!
 ..* Mouseover
 
 ### Issues I Ran Into:
-..* Had to learn Canvas, plus additional requirements regarding music analysers.
+*Had to learn Canvas, plus additional requirements regarding music analysers.
 
-..* This: 
+* This: 
 Access to audio at 'file:///Users/siara/Desktop/GA-Projects/Game2/MP3/game.mp3' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https. 
 
 In short CORS blocked me from synchronizing the music to my canvas element, leaving the canvas running consistently at the default rate. SetTimeout slowed it down to start, but SetInterval was blatantly ignored, code would’ve had to be completely re-written. I may have found another alternative as well, potential work around with ArrayBuffer, which I believe would allow me set things accordingly, vs working with a default.
