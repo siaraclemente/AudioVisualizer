@@ -44,64 +44,64 @@ class Rectangles {
 
 //having rectagles fill entire window width
 function drawAllRectangles(){ 
-    for (var i = 0; i < window.innerWidth / 50; i++) {
+    for (var i = 0; i < window.innerWidth / 50; i++){
         rectangles.push(new Rectangles(i));
         rectangles[rectangles.length - 1].drawRectangle();
     }            
 }
 
 //creation of bubbles
-// class Bubbles {
-//     constructor(x, y, vx, vy, r){
-//         this.x = x;
-//         this.y = y;
-//         this.vx = vx;
-//         this.vy = vy;
-//         this.r = 5;
-//     }
+class Bubbles {
+    constructor(x, y, vx, vy, r){
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.r = 5;
+    }
 
-    // actually drawing circles/bubbles on canvas
-    // drawBubbles(){
-    //     c.beginPath();
-    //     c.arc(this.x, this.y, this.r, 2 * Math.PI, false);
-    //     c.strokeStyle = 'white';
-    //     c.stroke();
-    //     c.closePath();
-    // }
+    // actually drawing one circle/bubble on canvas
+    drawBubbles(){
+        c.beginPath();
+        c.arc(this.x, this.y, this.r, 2 * Math.PI, false);
+        c.strokeStyle = 'white';
+        c.stroke();
+        c.closePath();
+    }
 
-    // //drawing animation of bubbles
-    // float(){
-    //     if (this.x + this.r > innerWidth || 
-    //         this.x - this.r < 0){
-    //             vx = -vx;
-    //         } 
-    //     if (this.r + this.y > innerHeight ||
-    //         this.y - this.drawBubbles.r < 0){
-    //             vy = -vx;
-    //         } 
-    // }   
 
-// //randomizing placement of bubbles to fill window
-// function init(){
-//     var vx = .05;
-//     var vy = .05;
-//     var r = 5;
 
-//     for (var i = 0; i < 500; i++){
-//         var x = Math.floor(Math.random() * window.innerWidth);
-//         var y = Math.floor(Math.random() * window.innerHeight);
-//         newBubbles.push(new Bubbles(x, y, vx, vy, r));
-//     }  
-// }
+    //drawing animation of bubbles
+    float(){
+        //collision detection
+        if (this.x + this.r > innerWidth || 
+            this.x - this.r < 0){
+                this.x = -this.vx;
+            } 
+        if (this.r + this.y > innerHeight ||
+            this.y - this.drawBubbles.r < 0){
+                this.y = -this.vx;
+            }
+            this.x += this.vx; 
+            this.y += this.vx;
+    }  
+}
+
+//repetively drawing bubbles to fill window
+function init(){
+    var vx = .05;
+    var vy = .05;
+    var r = 5;
+
+    for (var i = 0; i < 500; i++){
+        var x = Math.floor(Math.random() * window.innerWidth);
+        var y = Math.floor(Math.random() * window.innerHeight);
+        newBubbles.push(new Bubbles(x, y, vx, vy, r));
+    }  
+} 
 
 //event listeners
 window.addEventListener('mousemove', function (event){
-// var mouse = {
-//     x: undefined
-//     y: undefined
-//     }
-    // mouse.x = event.x;
-    // mouse.y = event.y;
     console.log('hi');
      });
     
@@ -130,11 +130,11 @@ function animate(){
     analyser.getByteFrequencyData(soundData);
     c.clearRect(0, 0, canvas.width, canvas.height); //clear canvas every time function loops
         
-        // //looping bubbles consistently
-        // for (let i = 0; i < newBubbles.length; i++){
-        //    newBubbles[i].drawBubbles();
-        //    newBubbles[i].float();
-        // }
+        //looping bubbles consistently
+        for (let i = 0; i < newBubbles.length; i++){
+         newBubbles[i].drawBubbles();
+           newBubbles[i].float();
+        }
 
         //looping rectangles consistently
         rectangles = [];
@@ -144,6 +144,7 @@ function animate(){
         }         
 }
 
-//init();
+init();
+// drawBubbles(); BROKE IT
 drawAllRectangles();
 animate();
