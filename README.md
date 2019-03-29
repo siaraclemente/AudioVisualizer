@@ -1,4 +1,4 @@
-# AudioVisualiser
+# AudioVisualizer
 
 ### I Made This: 
 http://opposite-afterthought.surge.sh/
